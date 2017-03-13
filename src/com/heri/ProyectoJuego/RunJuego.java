@@ -63,7 +63,7 @@ public class RunJuego {
                             Ej1.ataco = false;
                             CE1.ataco = false;
 
-                            System.out.println("tu tropa ya esta lista para volver a atacar");
+                            System.out.println("tu tropa esta lista para volver a atacar");
 
                         }
 
