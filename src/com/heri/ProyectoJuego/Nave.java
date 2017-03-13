@@ -191,9 +191,10 @@ public class Nave {
     public void Menu (){
 
         System.out.println("");
-        System.out.println("1. Mostrar equipo");
+        System.out.println("1. Ver mi equipo");
         System.out.println("2. Atacar");
         System.out.println("3. Defender");
+        System.out.println("4. Ver equipo contrario");
         System.out.println("¿Que accion quieres ejecutar?");
         System.out.println("");
     }

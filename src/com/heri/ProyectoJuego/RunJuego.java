@@ -18,7 +18,9 @@ public class RunJuego {
 
         System.out.println("\nS T A R   W A R S\n");
         System.out.println("Existen 3 tipos de naves con las cuales solo se puede atacar una vez," +
-                " puede volver a atacar cuando los demas de su grupo ya lo allan hecho, se puede efender las veces que quiera\n");
+                " puede volver a atacar cuando los demas de su grupo ya lo allan hecho\n, se puede defender las veces que quiera, pero si ataca, " +
+                "el escudo se desabilitara" +
+                " el juego termina cuando el Acorasado es destruido \n");
 
         AcorasadoEstelar AE1 = new AcorasadoEstelar(1);
         Ejecutor Ej1 = new Ejecutor(1);
@@ -31,6 +33,16 @@ public class RunJuego {
         while (gameOver){
 
             if (n.jugado){
+
+                if (Ej1.isDestruida(Ej1)){
+
+                    Ej1.ataco = true;
+                }
+
+                if (CE1.isDestruida(CE1)){
+
+                    CE1.ataco = true;
+                }
 
                 System.out.println("\nJugador 1");
                 n.Menu();
@@ -98,55 +110,91 @@ public class RunJuego {
 
                                     break;
 
-                                case 2:
+                                case 2://atacar ejecutor
 
                                     n.MenuAtacarEjecutorCazestelar();
                                     opcion = sc.nextInt();
                                     if (opcion == 1){
-                                        if (!Ej1.ataco){
+                                        if(Ej1.getVida() <= 0){
 
-                                            if (Ej2.defendio){
+                                            System.out.println("Una nave destruida no puede atacar");
+                                            n.ataco = false;
+                                            break;
+                                        }else {
 
-                                                Ej2.Daños(2);
-                                                n.AtaqueExitosoEscudo(2);
+                                            if (!Ej1.ataco){
+                                                if(Ej2.getVida() <= 0){
+
+                                                    System.out.println("\nNo se puede atacar una nave destruida");
+                                                    n.ataco = false;
+                                                    break;
+
+                                                }else{
+
+                                                    if (Ej2.defendio){
+
+                                                        Ej2.Daños(2);
+                                                        n.AtaqueExitosoEscudo(2);
+
+                                                    }else{
+
+                                                        Ej2.Daños(5);
+                                                        n.AtaqueExitoso(5);
+
+                                                    }
+                                                }
+
+                                                n.ataco = true;
 
                                             }else{
 
-                                                Ej2.Daños(5);
-                                                n.AtaqueExitoso(5);
-
+                                                System.out.println("Ya ataco debe esperar que ataquen los demas");
+                                                n.ataco = false;
                                             }
-                                            n.ataco = true;
 
-                                        }else{
-
-                                            System.out.println("Ya ataco debe esperar que ataquen los demas");
-                                            n.ataco = false;
                                         }
 
                                         Ej1.ataco = true;
 
 
                                     }else if(opcion == 2){
-                                        if (!CE1.ataco){
+                                        if(CE1.getVida() <= 0){
 
-                                            if (Ej2.defendio){
-
-                                                Ej2.Daños(0);
-                                                n.AtaqueExitosoEscudo(0);
-
-                                            }else {
-
-                                                Ej2.Daños(3);
-                                                n.AtaqueExitoso(3);
-
-                                            }
-                                            n.ataco = true;
-
-                                        }else{
-
-                                            System.out.println("Ya ataco debe esperar que ataquen los demas");
+                                            System.out.println("Una nave destruida no puede atacar");
                                             n.ataco = false;
+                                            break;
+                                        }else {
+
+                                            if (!CE1.ataco){
+                                                if(Ej2.getVida() <= 0){
+
+                                                    System.out.println("\nNo se puede atacar una nave destruida");
+                                                    n.ataco = false;
+                                                    break;
+
+                                                }else {
+
+                                                    if (Ej2.defendio){
+
+                                                        Ej2.Daños(0);
+                                                        n.AtaqueExitosoEscudo(0);
+
+                                                    }else {
+
+                                                        Ej2.Daños(3);
+                                                        n.AtaqueExitoso(3);
+
+                                                    }
+                                                }
+
+                                                n.ataco = true;
+
+                                            }else{
+
+                                                System.out.println("Ya ataco debe esperar que ataquen los demas");
+                                                n.ataco = false;
+                                            }
+
                                         }
 
                                         CE1.ataco = true;
@@ -156,42 +204,77 @@ public class RunJuego {
                                     }
                                     break;
 
-                                case 3:
+                                case 3://atacar Caza estelar
 
                                     n.MenuAtacarEjecutorCazestelar();
                                     opcion = sc.nextInt();
                                     if (opcion == 1){
-                                        if (!Ej1.ataco){
+                                        if(Ej1.getVida() <= 0){
 
-                                            CE2.Daños(5);
-                                            System.out.println("El ataque supero la defensa y el Caza estelar fue destruido");
-                                            n.ataco = true;
-
+                                            System.out.println("Una nave destruida no puede atacar");
+                                            n.ataco = false;
+                                            break;
                                         }else {
 
-                                            System.out.println("Ya ataco debe esperar que ataquen los demas");
-                                            n.ataco = false;
+                                            if (!Ej1.ataco){
+                                                if (CE2.getVida() <= 0){
+
+                                                    System.out.println("\nNo se puede atacar una nave destruida");
+                                                    n.ataco = false;
+                                                    break;
+
+                                                }else {
+
+                                                    CE2.Daños(5);
+                                                    System.out.println("El ataque supero la defensa y el Caza estelar fue destruido");
+                                                    n.ataco = true;
+                                                }
+
+                                            }else {
+
+                                                System.out.println("Ya ataco debe esperar que ataquen los demas");
+                                                n.ataco = false;
+                                            }
                                         }
 
                                         Ej1.ataco = true;
 
                                     }else if (opcion == 2){
-                                        if (!CE1.ataco){
-                                            if (CE2.defendio){
+                                        if(CE1.getVida() <= 0){
 
-                                                CE2.Daños(2);
-                                                n.AtaqueExitosoEscudo(2);
-                                            }else {
-
-                                                CE2.Daños(3);
-                                                System.out.println("El ataque destruyo el Caza Estelar");
-                                            }
-                                            n.ataco = true;
+                                            System.out.println("Una nave destruida no puede atacar");
+                                            n.ataco = false;
+                                            break;
 
                                         }else {
 
-                                            System.out.println("Ya ataco debe esperar que ataquen los demas");
-                                            n.ataco = false;
+                                            if (!CE1.ataco){
+                                                if (CE2.getVida() <= 0){
+
+                                                    System.out.println("\nNo se puede atacar una nave destruida");
+                                                    n.ataco = false;
+                                                    break;
+
+                                                }else {
+
+                                                    if (CE2.defendio){
+
+                                                        CE2.Daños(2);
+                                                        n.AtaqueExitosoEscudo(2);
+                                                    }else {
+
+                                                        CE2.Daños(3);
+                                                        System.out.println("El ataque destruyo el Caza Estelar");
+                                                    }
+                                                }
+
+                                                n.ataco = true;
+
+                                            }else {
+
+                                                System.out.println("Ya ataco debe esperar que ataquen los demas");
+                                                n.ataco = false;
+                                            }
                                         }
 
                                         CE1.ataco = true;
@@ -210,9 +293,9 @@ public class RunJuego {
 
                         }
 
-
                         n.jugado = false;
                         break;
+
                     case 3:
 
                         AE1.defendio = true;
@@ -223,6 +306,15 @@ public class RunJuego {
 
                         n.jugado = false;
                         break;
+
+                    case 4:
+
+                        AE2.getNave();
+                        Ej2.getNave();
+                        CE2.getNave();
+
+                        break;
+
                     default:
                         System.out.println("opcion no valida");
                 }
@@ -500,6 +592,15 @@ public class RunJuego {
 
                         n.jugado = true;
                         break;
+
+                    case 4:
+
+                        AE1.getNave();
+                        Ej1.getNave();
+                        CE1.getNave();
+
+                        break;
+
                     default:
                         System.out.println("opcion no valida");
                 }

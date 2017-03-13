@@ -9,7 +9,7 @@ public class Ejecutor extends Nave{
 
         this.brigada = brigada;
         this.nombre = "Ejecutor";
-        this.vida = 3;
+        this.vida = 9;
         this.arma = "Ejecucion final";
         this.ataque = 5;
         this.defensa = 3;
