@@ -11,7 +11,6 @@ public class RunJuego {
 
         boolean gameOver = true;
         int opcion = 0;
-        int brigada,brigada2;
 
         Scanner sc = new Scanner(System.in);
         Nave n = new Nave();
@@ -20,15 +19,15 @@ public class RunJuego {
         System.out.println("Existen 3 tipos de naves con las cuales solo se puede atacar una vez," +
                 " puede volver a atacar cuando los demas de su grupo ya lo allan hecho\n, se puede defender las veces que quiera, pero si ataca, " +
                 "el escudo se desabilitara" +
-                " el juego termina cuando el Acorasado es destruido \n");
+                " el juego termina cuando el Acorasado estelar es destruido \n");
 
-        AcorasadoEstelar AE1 = new AcorasadoEstelar(1);
-        Ejecutor Ej1 = new Ejecutor(1);
-        CazaEstelar CE1 = new CazaEstelar(1);
+        Nave AE1 = new Nave(1,"Destructor Estelar","Cañon Estelar",13,7,5);
+        Nave Ej1 = new Nave(1,"Alcon Milenario","Ejecucion Milenaria",9,5,3);
+        Nave CE1 = new Nave(1,"T-65 Ala-X (X-Wing)","Laser de Luz",5,3,1);
 
-        AcorasadoEstelar AE2 = new AcorasadoEstelar(2);
-        Ejecutor Ej2 = new Ejecutor(2);
-        CazaEstelar CE2 = new CazaEstelar(2);
+        Nave AE2 = new Nave(2,"Super Destructor Estelar","Cañon Estelar",13,7,5);
+        Nave Ej2 = new Nave(2,"Eclipse","Ejecucion Final",9,5,3);
+        Nave CE2 = new Nave(2,"TIE Avanzado X1","Laser Oscuro",5,3,1);
 
         while (gameOver){
 
