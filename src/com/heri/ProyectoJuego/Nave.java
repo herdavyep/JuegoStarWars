@@ -40,11 +40,11 @@ public class Nave {
 
     }
 
-    public void isDestruidaMensaje(Nave nave){
+    public static void isDestruidaMensaje(Nave nave){
 
         if (nave.getVida() <= 0){
 
-            System.out.println("La Nave fue destruida");
+            System.out.println("La Nave enemiga fue destruida");
         }
 
     }
@@ -150,6 +150,7 @@ public class Nave {
         getDestruida();
         System.out.println("");
     }
+
     public int Daños(int daño){
 
         vida = vida - daño;
@@ -221,6 +222,51 @@ public class Nave {
             System.out.println("Ya ataco debe esperar que ataquen los demas");
             estado.ataco = false;
 
+        }
+
+        ataca.ataco = true;
+    }
+
+    public static void Atacar(Nave ataca,Nave atacada, Nave estado){
+
+        if(ataca.getVida() <= 0){
+
+            System.out.println("Una nave destruida no puede atacar");
+            estado.ataco = false;
+            //break;
+        }else {
+
+            if (!ataca.ataco){
+                if(atacada.getVida() <= 0){
+
+                    System.out.println("\nNo se puede atacar una nave destruida");
+                    estado.ataco = false;
+                    //break;
+
+                }else{
+
+                    if (atacada.defendio){
+
+                        atacada.Daños(2);
+                        Nave.AtaqueExitosoEscudo(2);
+                        Nave.isDestruidaMensaje(atacada);
+
+
+                    }else{
+
+                        atacada.Daños(5);
+                        Nave.AtaqueExitoso(5);
+                        Nave.isDestruidaMensaje(atacada);
+                    }
+                }
+
+                estado.ataco = true;
+
+            }else{
+
+                System.out.println("Ya ataco debe esperar que ataquen los demas");
+                estado.ataco = false;
+            }
         }
 
         ataca.ataco = true;
