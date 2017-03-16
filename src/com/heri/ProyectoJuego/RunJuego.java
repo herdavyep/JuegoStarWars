@@ -21,13 +21,13 @@ public class RunJuego {
                 "el escudo se desabilitara" +
                 " el juego termina cuando el Acorasado estelar es destruido \n");
 
-        Nave AE1 = new Nave(1,"Destructor Estelar","Cañon Estelar",13,7,5);
-        Nave Ej1 = new Nave(1,"Alcon Milenario","Ejecucion Milenaria",9,5,3);
-        Nave CE1 = new Nave(1,"T-65 Ala-X (X-Wing)","Laser de Luz",5,3,1);
+        Nave AE1 = new Nave(1,"Acorasado Estelar","Cañon Estelar",13,7,5);
+        Nave Ej1 = new Nave(1,"Ejecutor","Ejecucion Milenaria",9,5,3);
+        Nave CE1 = new Nave(1,"Caza estelar","Laser de Luz",5,3,1);
 
-        Nave AE2 = new Nave(2,"Super Destructor Estelar","Cañon Estelar",13,7,5);
-        Nave Ej2 = new Nave(2,"Eclipse","Ejecucion Final",9,5,3);
-        Nave CE2 = new Nave(2,"TIE Avanzado X1","Laser Oscuro",5,3,1);
+        Nave AE2 = new Nave(2,"Acorasado Estelar","Cañon Estelar",13,7,5);
+        Nave Ej2 = new Nave(2,"Ejecutor","Ejecucion Final",9,5,3);
+        Nave CE2 = new Nave(2,"Caza estelar","Laser Oscuro",5,3,1);
 
         while (gameOver){
 
@@ -44,7 +44,7 @@ public class RunJuego {
                 }
 
                 System.out.println("\nJugador 1");
-                n.Menu();
+                Nave.Menu();
 
                 opcion = sc.nextInt();
                 switch (opcion){
@@ -79,22 +79,22 @@ public class RunJuego {
 
                         while (!n.ataco){
 
-                            n.MenuAtacarA();
+                            Nave.MenuAtacarA();
                             opcion = sc.nextInt();
                             switch (opcion){
 
-                                case 1:
+                                case 1: // atacar acorazado
 
-                                    if (!AE1.ataco){
+                                   /* if (!AE1.ataco){
 
                                         if (AE2.defendio){
                                             AE2.Daños(2);
-                                            n.AtaqueExitosoEscudo(2);
+                                            Nave.AtaqueExitosoEscudo(2);
 
                                         }else{
 
                                             AE2.Daños(7);
-                                            n.AtaqueExitoso(7);
+                                            Nave.AtaqueExitoso(7);
                                         }
 
                                         n.ataco = true;
@@ -105,13 +105,14 @@ public class RunJuego {
 
                                     }
 
-                                    AE1.ataco = true;
+                                    AE1.ataco = true;*/
+                                   Nave.AtacarConAcorasado(AE1,AE2,n);
 
                                     break;
 
-                                case 2://atacar ejecutor
+                                case 2://atacar ejecutor con ejecutor
 
-                                    n.MenuAtacarEjecutorCazestelar();
+                                    Nave.MenuAtacarEjecutorCazestelar();
                                     opcion = sc.nextInt();
                                     if (opcion == 1){
                                         if(Ej1.getVida() <= 0){
@@ -133,12 +134,12 @@ public class RunJuego {
                                                     if (Ej2.defendio){
 
                                                         Ej2.Daños(2);
-                                                        n.AtaqueExitosoEscudo(2);
+                                                        Nave.AtaqueExitosoEscudo(2);
 
                                                     }else{
 
                                                         Ej2.Daños(5);
-                                                        n.AtaqueExitoso(5);
+                                                        Nave.AtaqueExitoso(5);
 
                                                     }
                                                 }
@@ -156,7 +157,7 @@ public class RunJuego {
                                         Ej1.ataco = true;
 
 
-                                    }else if(opcion == 2){
+                                    }else if(opcion == 2){ // atacar ejecutor con caza estelar
                                         if(CE1.getVida() <= 0){
 
                                             System.out.println("Una nave destruida no puede atacar");
@@ -176,12 +177,12 @@ public class RunJuego {
                                                     if (Ej2.defendio){
 
                                                         Ej2.Daños(0);
-                                                        n.AtaqueExitosoEscudo(0);
+                                                        Nave.AtaqueExitosoEscudo(0);
 
                                                     }else {
 
                                                         Ej2.Daños(3);
-                                                        n.AtaqueExitoso(3);
+                                                        Nave.AtaqueExitoso(3);
 
                                                     }
                                                 }
@@ -203,9 +204,9 @@ public class RunJuego {
                                     }
                                     break;
 
-                                case 3://atacar Caza estelar
+                                case 3://atacar Caza estelar con ejecutor
 
-                                    n.MenuAtacarEjecutorCazestelar();
+                                    Nave.MenuAtacarEjecutorCazestelar();
                                     opcion = sc.nextInt();
                                     if (opcion == 1){
                                         if(Ej1.getVida() <= 0){
@@ -238,7 +239,7 @@ public class RunJuego {
 
                                         Ej1.ataco = true;
 
-                                    }else if (opcion == 2){
+                                    }else if (opcion == 2){ //atacar caza estelar con caza estelar
                                         if(CE1.getVida() <= 0){
 
                                             System.out.println("Una nave destruida no puede atacar");
@@ -259,11 +260,16 @@ public class RunJuego {
                                                     if (CE2.defendio){
 
                                                         CE2.Daños(2);
-                                                        n.AtaqueExitosoEscudo(2);
+                                                        Nave.AtaqueExitosoEscudo(2);
+                                                        if (CE2.getVida() <= 0){
+
+                                                            System.out.println("el Caza Estelar fue destruido");
+                                                        }
                                                     }else {
 
                                                         CE2.Daños(3);
-                                                        System.out.println("El ataque destruyo el Caza Estelar");
+                                                        Nave.AtaqueExitoso(3);
+
                                                     }
                                                 }
 
@@ -372,7 +378,7 @@ public class RunJuego {
 
                                 case 1:
 
-                                    if (!AE2.ataco){
+                                    /*if (!AE2.ataco){
 
                                         if (AE1.defendio){
                                             AE1.Daños(2);
@@ -392,7 +398,9 @@ public class RunJuego {
 
                                     }
 
-                                    AE2.ataco = true;
+                                    AE2.ataco = true;*/
+
+                                    Nave.AtacarConAcorasado(AE2,AE1,n);
 
                                     break;
 
@@ -550,7 +558,7 @@ public class RunJuego {
                                                     }else {
 
                                                         CE1.Daños(3);
-                                                        System.out.println("El ataque destruyo el Caza Estelar");
+                                                        Nave.AtaqueExitoso(3);
                                                     }
                                                 }
 

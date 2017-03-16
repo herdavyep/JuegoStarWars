@@ -16,6 +16,19 @@ public class Nave {
     protected boolean defendio = false;
     protected boolean destruida = false;
 
+    public Nave() {
+
+    }
+
+    public Nave(int brigada, String nombre, String arma, int vida, int ataque, int defensa) {
+        this.brigada = brigada;
+        this.nombre = nombre;
+        this.arma = arma;
+        this.vida = vida;
+        this.ataque = ataque;
+        this.defensa = defensa;
+    }
+
     public boolean isDestruida(Nave nave){
 
         if (nave.getVida() <= 0){
@@ -24,6 +37,15 @@ public class Nave {
 
         }
         return destruida;
+
+    }
+
+    public void isDestruidaMensaje(Nave nave){
+
+        if (nave.getVida() <= 0){
+
+            System.out.println("La Nave fue destruida");
+        }
 
     }
 
@@ -53,25 +75,6 @@ public class Nave {
 
     public boolean isDefendio() {
         return defendio;
-    }
-
-    public Nave(int brigada, String nombre, String arma, int vida, int ataque, int defensa) {
-        this.brigada = brigada;
-        this.nombre = nombre;
-        this.arma = arma;
-        this.vida = vida;
-        this.ataque = ataque;
-        this.defensa = defensa;
-    }
-
-    public Nave() {
-
-        this. brigada = 0;
-        this.nombre = "nombre";
-        this.vida = 3;
-        this.arma = "cañon estelar";
-        this.ataque = 3;
-        this.defensa = 2;
     }
 
     public String getNombre() {
@@ -153,7 +156,7 @@ public class Nave {
         return vida;
     }
 
-    public void MenuAtacarA(){
+    public static void MenuAtacarA(){
 
         System.out.println("");
         System.out.println("¿Cual quieres atacar?");
@@ -165,19 +168,7 @@ public class Nave {
 
     }
 
-    public void MenuAtacarConAcorasado (){
-
-        System.out.println("");
-        System.out.println("¿Con quien quieres atacar?");
-        System.out.println("1. Atacar Acorasado Estelar");
-        System.out.println("2. Atacar Ejecutor");
-        System.out.println("3. Atacar Caza Estelar");
-        System.out.println("Ingresa la opcion!");
-        System.out.println("");
-
-    }
-
-    public void MenuAtacarEjecutorCazestelar (){
+    public static void MenuAtacarEjecutorCazestelar (){
 
         System.out.println("");
         System.out.println("¿Con cual quieres atacar?");
@@ -188,7 +179,7 @@ public class Nave {
 
     }
 
-    public void Menu (){
+    public static void Menu (){
 
         System.out.println("");
         System.out.println("1. Ver mi equipo");
@@ -199,15 +190,39 @@ public class Nave {
         System.out.println("");
     }
 
-    public void AtaqueExitoso(int daño){
+    public static void AtaqueExitoso(int daño){
 
         System.out.println("El ataque fue directo y ocaciono "+daño+" puntos de daño");
 
     }
 
-    public void AtaqueExitosoEscudo(int daño){
+    public static void AtaqueExitosoEscudo(int daño){
 
         System.out.println("El ataque fue debilitado y solo ocasiono "+daño+" puntos de daño, porque el enemigo tenia activado el escudo");
     }
 
+    public static void AtacarConAcorasado(Nave ataca,Nave atacada, Nave estado){
+
+        if (!ataca.ataco){
+
+            if (atacada.defendio){
+                atacada.Daños(2);
+                Nave.AtaqueExitosoEscudo(2);
+
+            }else{
+
+                atacada.Daños(7);
+                Nave.AtaqueExitoso(7);
+            }
+
+            estado.ataco = true;
+        }else{
+
+            System.out.println("Ya ataco debe esperar que ataquen los demas");
+            estado.ataco = false;
+
+        }
+
+        ataca.ataco = true;
+    }
 }
